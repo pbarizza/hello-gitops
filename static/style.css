@@ -1,0 +1,45 @@
+body {
+    background: #0f0c29;  /* fallback for old browsers */
+    background: linear-gradient(45deg, #0f0c29, #302b63, #24243e);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #00ffcc;
+    overflow: hidden;
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 3rem;
+    border-radius: 20px;
+    border: 2px solid #ff00ff;
+    box-shadow: 0 0 20px #ff00ff, inset 0 0 10px #ff00ff;
+    text-align: center;
+    animation: neon-glow 1.5s ease-in-out infinite alternate;
+}
+
+h1 {
+    font-size: 4rem;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    margin: 0;
+    background: linear-gradient(to right, #00ffcc, #ff00ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(2px 2px 5px rgba(0,0,0,0.5));
+}
+
+p {
+    color: #ffffff;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+@keyframes neon-glow {
+    from { box-shadow: 0 0 10px #ff00ff; }
+    to { box-shadow: 0 0 30px #00ffcc; border-color: #00ffcc; }
+}
+
