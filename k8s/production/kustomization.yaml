@@ -3,15 +3,40 @@ kind: Kustomization
 resources:
   - ../base
 namePrefix: prod-
-labels:  # ✅ Use 'labels' instead of 'commonLabels'
+labels:
   - pairs:
       environment: production
     includeSelectors: true
 patches:
+  # ✅ Expose via IPv6 LoadBalancer for external access
+  - target:
+      kind: Service
+      name: hello-gitops
+    patch: |-
+      - op: replace
+        path: /spec/type
+        value: LoadBalancer
+      - op: add
+        path: /metadata/annotations
+        value:
+          service.beta.kubernetes.io/alibaba-cloud-loadbalancer-address-type: "ipv6"
+          service.beta.kubernetes.io/alibaba-cloud-loadbalancer-ipv6-internet-bandwidth: "5"
+  # ✅ Scale deployment for production
   - target:
       kind: Deployment
-      name: gitops-poc
+      name: hello-gitops
     patch: |-
       - op: replace
         path: /spec/replicas
         value: 3
+      - op: replace
+        path: /spec/template/spec/containers/0/env/1/value
+        value: "production"
+      - op: replace
+        path: /spec/template/spec/containers/0/resources/requests/memory
+        value: "256Mi"
+      - op: replace
+        path: /spec/template/spec/containers/0/resources/limits/memory
+        value: "512Mi"
+# ✅ Image is managed by ArgoCD Image Updater or Tekton pipeline
+# No static image override here to allow dynamic tag updates

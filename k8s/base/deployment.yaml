@@ -1,26 +1,46 @@
-# k8s/base/deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
-metadata:  
-  name: gitops-poc
+metadata:
+  name: hello-gitops
   labels:
-    app: gitops-poc
+    app: hello-gitops
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: gitops-poc
+      app: hello-gitops
   template:
     metadata:
       labels:
-        app: gitops-poc
+        app: hello-gitops
     spec:
       containers:
       - name: app
-        image: gitops-poc:latest
+        image: ndregistry-registry.ap-southeast-1.cr.aliyuncs.com/pbarizza/hello-gitops:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 5000
         env:
         - name: APP_VERSION
           value: "1.0.0"
+        - name: ENVIRONMENT
+          value: "development"
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "500m"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 5000
+          initialDelaySeconds: 10
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 5000
+          initialDelaySeconds: 5
+          periodSeconds: 5

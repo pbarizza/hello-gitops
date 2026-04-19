@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: gitops-poc
+  name: hello-gitops
   labels:
-    app: gitops-poc
+    app: hello-gitops
 spec:
   type: ClusterIP
   ports:
@@ -12,5 +12,5 @@ spec:
     protocol: TCP
     name: http
   selector:
-    app: gitops-poc
+    app: hello-gitops
 
