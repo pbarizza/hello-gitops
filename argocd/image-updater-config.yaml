@@ -9,7 +9,7 @@ data:
     registries:
     - name: Alibaba Singapore Enterprise
       api_url: https://cri-la2ldabr2cf5lgpx.registry.ap-southeast-1.cr.aliyuncs.com
-      prefix: cri-la2ldabr2cf5lgpx.registry.ap-southeast-1.cr.aliyuncs.com
+      prefix: rndregistry.registry.ap-southeast-1.cr.aliyuncs.com
       type: aliyun
       credentials: secret:argocd/acr-auth-secret#credentials
 

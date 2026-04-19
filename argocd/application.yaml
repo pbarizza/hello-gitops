@@ -21,7 +21,7 @@ spec:
     kustomize:
       # Initial sync image (Updater will overwrite this automatically)
       images:
-        - hello-gitops=cri-la2ldabr2cf5lgpx.registry.ap-southeast-1.cr.aliyuncs.com/pbarizza/hello-gitops:v1.1-flashy
+        - hello-gitops=rndregistry.registry.ap-southeast-1.cr.aliyuncs.com/pbarizza/hello-gitops:v1.1-flashy
   
   # 🎯 DESTINATION: Cluster & Namespace
   destination:
