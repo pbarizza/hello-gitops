@@ -19,7 +19,7 @@ patches:
       - op: add
         path: /metadata/annotations
         value:
-          service.beta.kubernetes.io/alibaba-cloud-loadbalancer-address-type: "ipv6"
+          service.beta.kubernetes.io/alibaba-cloud-loadbalancer-address-type: "dualstack"
           service.beta.kubernetes.io/alibaba-cloud-loadbalancer-ipv6-internet-bandwidth: "5"
   # ✅ Production scaling & resource adjustments
   - target:
@@ -41,6 +41,6 @@ patches:
 # ✅ Kustomize overrides the base image placeholder
 images:
   - name: hello-gitops
-    newName: rndregistry.registry.ap-southeast-1.cr.aliyuncs.com/pbarizza/hello-gitops
+    newName: rndregistry-registry.ap-southeast-1.cr.aliyuncs.com/pbarizza/hello-gitops 
     newTag: v1.1-flashy
 

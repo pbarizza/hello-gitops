@@ -5,7 +5,7 @@ metadata:
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
-  # 🤖 ArgoCD Image Updater Annotations for Auto-Tag Sync
+  # ArgoCD Image Updater Annotations for Auto-Tag Sync
   annotations:
     argocd-image-updater.argoproj.io/image-list: hello-gitops=cri-la2ldabr2cf5lgpx.registry.ap-southeast-1.cr.aliyuncs.com/pbarizza/hello-gitops
     argocd-image-updater.argoproj.io/hello-gitops.update-strategy: latest
@@ -13,7 +13,7 @@ metadata:
 spec:
   project: default
   
-  # 🔗 SOURCE: Git repo & Kustomize path
+  # SOURCE: Git repo & Kustomize path
   source:
     repoURL: https://github.com/pbarizza/gitops-evaluation.git
     targetRevision: main
@@ -21,14 +21,14 @@ spec:
     kustomize:
       # Initial sync image (Updater will overwrite this automatically)
       images:
-        - hello-gitops=rndregistry.registry.ap-southeast-1.cr.aliyuncs.com/pbarizza/hello-gitops:v1.1-flashy
+        - hello-gitops=rndregistry-registry.ap-southeast-1.cr.aliyuncs.com/pbarizza/hello-gitops:v1.1-flashy
   
-  # 🎯 DESTINATION: Cluster & Namespace
+  # DESTINATION: Cluster & Namespace
   destination:
     server: https://kubernetes.default.svc
     namespace: hello-gitops
   
-  # ⚙️ SYNC POLICY: Automated GitOps
+  # SYNC POLICY: Automated GitOps
   syncPolicy:
     automated:
       prune: true
@@ -45,6 +45,6 @@ spec:
         factor: 2
         maxDuration: 3m
   
-  # 📜 REVISION HISTORY
+  # REVISION HISTORY
   revisionHistoryLimit: 10
 
