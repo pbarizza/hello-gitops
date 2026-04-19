@@ -8,8 +8,8 @@ data:
   registries.conf: |
     registries:
     - name: Alibaba Singapore Enterprise
-      api_url: https://rndregistry-registry.ap-southeast-1.cr.aliyuncs.com/pbarizza/hello-gitops
-      prefix: rndregistry.registry.ap-southeast-1.cr.aliyuncs.com
+      api_url: rndregistry-registry-vpc.ap-southeast-1.cr.aliyuncs.com/pbarizza/hello-gitops
+      prefix: rndregistry-registry-vpc.ap-southeast-1.cr.aliyuncs.com
       type: aliyun
       credentials: secret:argocd/acr-auth-secret#credentials
 

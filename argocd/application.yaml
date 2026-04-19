@@ -7,7 +7,7 @@ metadata:
     - resources-finalizer.argocd.argoproj.io
   # ArgoCD Image Updater Annotations for Auto-Tag Sync
   annotations:
-    argocd-image-updater.argoproj.io/image-list: hello-gitops=cri-la2ldabr2cf5lgpx.registry.ap-southeast-1.cr.aliyuncs.com/pbarizza/hello-gitops
+    argocd-image-updater.argoproj.io/image-list: hello-gitops=rndregistry-registry-vpc.ap-southeast-1.cr.aliyuncs.com/pbarizza/hello-gitops
     argocd-image-updater.argoproj.io/hello-gitops.update-strategy: latest
     argocd-image-updater.argoproj.io/hello-gitops.allow-tags: regexp:^v[0-9]+\.[0-9]+-flashy$
 spec:
@@ -21,7 +21,7 @@ spec:
     kustomize:
       # Initial sync image (Updater will overwrite this automatically)
       images:
-        - hello-gitops=rndregistry-registry.ap-southeast-1.cr.aliyuncs.com/pbarizza/hello-gitops:v1.1-flashy
+        - hello-gitops=rndregistry-registry-vpc.ap-southeast-1.cr.aliyuncs.com/pbarizza/hello-gitops:v1.0-flashy
   
   # DESTINATION: Cluster & Namespace
   destination:
