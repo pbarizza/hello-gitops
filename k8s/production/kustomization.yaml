@@ -3,8 +3,10 @@ kind: Kustomization
 resources:
   - ../base
 namePrefix: prod-
-commonLabels:
-  environment: production
+labels:  # ✅ Use 'labels' instead of 'commonLabels'
+  - pairs:
+      environment: production
+    includeSelectors: true
 patches:
   - target:
       kind: Deployment
@@ -13,9 +15,3 @@ patches:
       - op: replace
         path: /spec/replicas
         value: 3
-      - op: replace
-        path: /spec/template/spec/containers/0/env/0/value
-        value: "1.0.0"
-      - op: replace
-        path: /spec/template/spec/containers/0/env/1/value
-        value: "production"

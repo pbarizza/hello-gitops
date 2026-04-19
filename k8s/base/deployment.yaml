@@ -1,49 +1,26 @@
+# k8s/base/deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
-meta
+metadata:  
   name: gitops-poc
   labels:
     app: gitops-poc
-    app.kubernetes.io/name: gitops-poc
 spec:
   replicas: 2
   selector:
     matchLabels:
       app: gitops-poc
   template:
-    meta
+    metadata:
       labels:
         app: gitops-poc
     spec:
       containers:
       - name: app
-        image: gitops-poc:latest  # ← Will be overridden by Kustomize/ArgoCD Image Updater
+        image: gitops-poc:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 5000
-          name: http
         env:
         - name: APP_VERSION
           value: "1.0.0"
-        - name: ENVIRONMENT
-          value: "development"
-        resources:
-          requests:
-            memory: "128Mi"
-            cpu: "100m"
-          limits:
-            memory: "256Mi"
-            cpu: "500m"
-        livenessProbe:
-          httpGet:
-            path: /health
-            port: 5000
-          initialDelaySeconds: 10
-          periodSeconds: 10
-        readinessProbe:
-          httpGet:
-            path: /
-            port: 5000
-          initialDelaySeconds: 5
-          periodSeconds: 5
-

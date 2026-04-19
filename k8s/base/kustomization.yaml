@@ -3,5 +3,7 @@ kind: Kustomization
 resources:
   - deployment.yaml
   - service.yaml
-commonLabels:
-  app.kubernetes.io/managed-by: kustomize
+labels:  # ✅ Use 'labels' instead of 'commonLabels'
+  - pairs:
+      app.kubernetes.io/managed-by: kustomize
+    includeSelectors: true
