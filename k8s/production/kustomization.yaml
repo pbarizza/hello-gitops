@@ -8,7 +8,7 @@ labels:
       environment: production
     includeSelectors: true
 patches:
-  # ✅ Expose via IPv6 LoadBalancer for external access
+  # ✅ Expose via IPv6 LoadBalancer
   - target:
       kind: Service
       name: hello-gitops
@@ -21,7 +21,7 @@ patches:
         value:
           service.beta.kubernetes.io/alibaba-cloud-loadbalancer-address-type: "ipv6"
           service.beta.kubernetes.io/alibaba-cloud-loadbalancer-ipv6-internet-bandwidth: "5"
-  # ✅ Scale deployment for production
+  # ✅ Production scaling & resource adjustments
   - target:
       kind: Deployment
       name: hello-gitops
@@ -38,5 +38,9 @@ patches:
       - op: replace
         path: /spec/template/spec/containers/0/resources/limits/memory
         value: "512Mi"
-# ✅ Image is managed by ArgoCD Image Updater or Tekton pipeline
-# No static image override here to allow dynamic tag updates
+# ✅ Kustomize overrides the base image placeholder
+images:
+  - name: hello-gitops
+    newName: cri-la2ldabr2cf5lgpx.registry.ap-southeast-1.cr.aliyuncs.com/pbarizza/hello-gitops
+    newTag: v1.1-flashy
+

@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: app
-        image: ndregistry-registry.ap-southeast-1.cr.aliyuncs.com/pbarizza/hello-gitops:latest
+        image: hello-gitops:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 5000
@@ -44,3 +44,4 @@ spec:
             port: 5000
           initialDelaySeconds: 5
           periodSeconds: 5
+
