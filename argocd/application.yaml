@@ -1,0 +1,45 @@
+# argocd/application.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+meta
+  name: gitops-poc-production      # ← ArgoCD app name (any valid K8s name)
+  namespace: argocd                # ← Must be in argocd namespace (or where ArgoCD is installed)
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io  # ← Prevents accidental deletion
+spec:
+  project: default                 # ← ArgoCD project (use "default" or create custom)
+  
+  # 🔗 SOURCE: Where to get manifests from Git
+  source:
+    repoURL: https://github.com/pbarizza/gitops-evaluation.git
+    targetRevision: main           # ← Branch, tag, or commit SHA
+    path: k8s/production           # ← ✅ THIS IS THE "PATH" ARGOCD ASKS FOR
+    kustomize:                     # ← Tell ArgoCD to use Kustomize
+      images:                      # ← Optional: override image at sync time
+        - gitops-poc=registry.ap-southeast-1.aliyuncs.com/your-namespace/gitops-poc:latest
+  
+  # 🎯 DESTINATION: Where to deploy in the cluster
+  destination:
+    server: https://kubernetes.default.svc  # ← In-cluster API server
+    namespace: gitops-poc                   # ← Target namespace for resources
+  
+  # ⚙️ SYNC POLICY: How ArgoCD manages the app
+  syncPolicy:
+    automated:                   # ← Enable auto-sync
+      prune: true                # ← Delete resources not in Git
+      selfHeal: true             # ← Revert manual changes
+      allowEmpty: false          # ← Prevent accidental wipe
+    syncOptions:
+      - CreateNamespace=true     # ← Create target namespace if missing
+      - PruneLast=true           # ← Prune after applying new resources
+      - ApplyOutOfSyncOnly=true  # ← Only sync drifted resources
+    retry:
+      limit: 5
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m
+  
+  # 📜 REVISION HISTORY: Keep last N syncs for rollback
+  revisionHistoryLimit: 10
+
